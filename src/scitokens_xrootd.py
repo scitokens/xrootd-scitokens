@@ -48,6 +48,29 @@ class AclGenerator(object):
             self.paths.add(scitokens.urltools.normalize_path(value))
         return True
 
+    def validate_scp(self, values):
+        if isinstance(values, str) or isinstance(values, unicode):
+            values = [values]
+
+        for value in values:
+            operation, path = value.split(":", 1)
+
+            # Test operations
+            if operation == "read":
+                self.aops.add(_scitokens_xrootd.AccessOperation.Read)
+            elif operation == "write":
+                self.aops.add(_scitokens_xrootd.AccessOperation.Update)
+                self.aops.add(_scitokens_xrootd.AccessOperation.Create)
+            else:
+                return False
+
+            # Test the paths
+            if not path.startswith("/"):
+                return False
+            self.paths.add(scitokens.urltools.normalize_path(path))
+        return True
+
+
     def validate_exp(self, value):
         self.cache_expiry = value - time.time()
         if self.cache_expiry <= 0:
@@ -148,8 +171,7 @@ def generate_acls(header):
     ag = AclGenerator(base_path)
 
     validator = scitokens.Validator()
-    validator.add_validator("authz", ag.validate_authz)
-    validator.add_validator("path", ag.validate_path)
+    validator.add_validator("scp", ag.validate_scp)
     validator.add_validator("exp", ag.validate_exp)
     validator.add_validator("sub", ag.validate_sub)
     validator.add_validator("iss", ag.validate_iss)
