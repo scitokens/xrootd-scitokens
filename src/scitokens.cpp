@@ -231,7 +231,7 @@ private:
         }
     }
 
-    std::mutex m_mutex;
+    static std::mutex m_mutex;
     std::map<std::string, std::shared_ptr<XrdAccRules>> m_map;
     boost::python::object m_module;
     std::unique_ptr<XrdAccAuthorize> m_chain;
@@ -240,6 +240,8 @@ private:
 
     static constexpr uint64_t m_expiry_secs = 60;
 };
+
+std::mutex XrdAccSciTokens::m_mutex;
 
 extern "C" {
 
