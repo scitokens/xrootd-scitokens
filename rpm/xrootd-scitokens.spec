@@ -27,7 +27,7 @@ SciTokens authentication plugin for XRootD
 %build
 mkdir build
 cd build
-%cmake ..
+%cmake -DPython_ADDITIONAL_VERSIONS=2.7 ..
 make 
 
 %install
@@ -50,6 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libXrdAccSciTokens-4.so
 %{_libdir}/python2.7/site-packages/_scitokens_xrootd.so
 %{_libdir}/python2.7/site-packages/scitokens_xrootd.py*
+%config(noreplace) %{_sysconfdir}/xrootd/scitokens.cfg
+%config %{_sysconfdir}/xrootd/config.d/30-scitokens-auth.cfg
 
 %defattr(-,root,root,-)
 
