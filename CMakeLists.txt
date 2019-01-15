@@ -36,6 +36,7 @@ target_link_libraries(XrdAccSciTokens -ldl ${Boost_PYTHON_LIBRARY} ${PYTHON_LIBR
 set_target_properties(XrdAccSciTokens PROPERTIES OUTPUT_NAME XrdAccSciTokens-4 SUFFIX ".so" LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/configs/export-lib-symbols")
 
 SET(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Install path for libraries")
+SET(SYSCONF_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/etc" CACHE PATH "Install path for config files")
 
 install(
   TARGETS _scitokens_xrootd
@@ -48,3 +49,11 @@ install(
 install(
   FILES ${CMAKE_SOURCE_DIR}/src/scitokens_xrootd.py
   DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/ )
+
+install(
+  FILES ${CMAKE_SOURCE_DIR}/configs/30-scitokens-auth.cfg
+  DESTINATION ${SYSCONF_INSTALL_DIR}/xrootd/config.d)
+
+install(
+  FILES ${CMAKE_SOURCE_DIR}/configs/scitokens.cfg
+  DESTINATION ${SYSCONF_INSTALL_DIR}/xrootd)

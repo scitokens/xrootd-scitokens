@@ -50,6 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libXrdAccSciTokens-4.so
 %{_libdir}/python2.7/site-packages/_scitokens_xrootd.so
 %{_libdir}/python2.7/site-packages/scitokens_xrootd.py*
+%config(noreplace) %{_sysconfdir}/xrootd/scitokens.cfg
+%config %{_sysconfdir}/xrootd/config.d/30-scitokens-auth.cfg
 
 %defattr(-,root,root,-)
 
