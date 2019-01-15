@@ -27,7 +27,7 @@ SciTokens authentication plugin for XRootD
 %build
 mkdir build
 cd build
-%cmake ..
+%cmake -DPython_ADDITIONAL_VERSIONS=2.7 ..
 make 
 
 %install
