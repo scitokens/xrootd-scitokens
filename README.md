@@ -1,5 +1,7 @@
-SciTokens Authorization Support for Xrootd
-==========================================
+SciTokens Authorization Support for Xrootd (Archived)
+=====================================================
+
+**Repository Archived.  XRootD SciTokens is now integrated into XRootD**
 
 This ACC (authorization) plugin for the Xrootd framework utilizes the [SciTokens
 library](https://www.scitokens.org) to validate and extract authorization claims from
